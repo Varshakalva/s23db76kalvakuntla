@@ -1,0 +1,21 @@
+
+extends layout
+
+block content
+  h1= title
+  - let results = [{Pearl_Color :"Green",Pearl_Weight:"10gms",Pearl_Cost:"$50"},{Pearl_Color:"White",Pearl_Weight:"15gms",Pearl_Cost:"$55"},{Pearl_Color:"Black",Pearl_Weight:"20gms",Pearl_Cost:"$60"}]
+  div(class="container-fluid")
+    div(class="row")
+      each item,index in results
+        div(class="col-sm-2",onClick=`buy(${index})`)
+          p Color is #{item.Pearl_Color}
+          p Weight  is #{item.Pearl_Weight}
+          p Cost is #{item.Pearl_Cost}
+
+  //- Bonus Logic
+  script.
+    function buy(itr) {
+      itr = itr+1;
+      alert(`You Purchased Item ${itr}`);
+    }
+
