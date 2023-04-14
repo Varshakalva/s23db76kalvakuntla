@@ -10,6 +10,8 @@ var pearlRouter = require('./routes/pearl');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
 var pearl = require("./models/pearl");
+var resourceRouter= require("./routes/resource");
+
 
 
 
@@ -45,6 +47,7 @@ app.use('/users', usersRouter);
 app.use('/pearl', pearlRouter);
 app.use('/board', boardRouter);
 app.use('/selector',selectorRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
