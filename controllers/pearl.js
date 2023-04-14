@@ -22,13 +22,9 @@ exports.pearl_create_post = async function (req, res) {
     
     console.log(req.body)
     let document = new pearl();
-    // We are looking for a body, since POST does not have query parameters.
-    // Even though bodies can be in many different formats, we will be picky
-    // and require that it be a json object
-    // {Pearl_Color :"Green",Pearl_Weight:"10gms",Pearl_Cost:"$50"}
-    document.pearl_Color = req.body.pearl_price;
-    document.pearl_Weight = req.body.pearl_Weight;
-    document.pearl_Cost = req.body.pearl_Cost;
+    document.Pearl_Color = req.body.Pearl_Color;
+    document.Pearl_Weight = req.body.Pearl_Weight;
+    document.Pearl_Cost = req.body.Pearl_Cost;
     try {
         let result = await document.save();
         res.send(result);
