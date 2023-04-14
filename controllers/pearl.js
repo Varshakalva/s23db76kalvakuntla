@@ -12,14 +12,14 @@ exports.pearl_list = async function (req, res) {
     }
 };
 // for a specific pearl.
-exports.pearl_detail = function (req, res) {
-    res.send('NOT IMPLEMENTED: pearl detail: ' + req.params.id);
-};
+// exports.pearl_detail = function (req, res) {
+//     res.send('NOT IMPLEMENTED: pearl detail: ' + req.params.id);
+// };
 
 
 // Handle pearl create on POST.
 exports.pearl_create_post = async function (req, res) {
-    
+
     console.log(req.body)
     let document = new pearl();
     document.Pearl_Color = req.body.Pearl_Color;
@@ -42,9 +42,39 @@ exports.pearl_delete = function (req, res) {
 };
 
 
+
+
 // Handle pearl update form on PUT.
-exports.pearl_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: pearl update PUT' + req.params.id);
+exports.pearl_update_put = async function (req, res) {
+    console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+    try {
+        let toUpdate = await pearl.findById(req.params.id)
+        // Do updates of properties
+        if (req.body.Pearl_Color)
+            toUpdate.Pearl_Color = req.body.Pearl_Color;
+        if (req.body.Pearl_Weight) toUpdate.Pearl_Weight = req.body.Pearl_Weight;
+        if (req.body.Pearl_Cost) toUpdate.Pearl_Cost = req.body.Pearl_Cost;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+    }
+};
+
+// for a specific pearl.
+exports.pearl_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await pearl.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
 
 // // List of all pearl
