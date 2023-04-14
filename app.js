@@ -6,10 +6,11 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 var pearlRouter = require('./routes/pearl');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var pearl = require("./models/pearl");
+
 
 
 var app = express();
@@ -24,9 +25,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
+var db = mongoose.connection;
+
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
 app.use('/pearl', pearlRouter);
 app.use('/board', boardRouter);
 app.use('/selector',selectorRouter);
@@ -48,4 +63,43 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// We can seed the collection if needed on
+async function recreateDB(){
+// Delete everything
+await pearl.deleteMany();
+
+let instance1 = new pearl({Pearl_Color:"Green", Pearl_Weight:"10gms", Pearl_Cost:50});
+instance1.save().then(doc=>{
+
+  console.log("First object saved")
+}
+  ).catch(err=>{
+
+  console.error(err)})
+
+let instance2 = new pearl({Pearl_Color:"White", Pearl_Weight:"15gms", Pearl_Cost:55});
+instance2.save().then(doc=>{
+
+  console.log("Second object saved")}
+
+  ).catch(err=>{
+
+  console.error(err)})
+
+let instance3 = new pearl({Pearl_Color:"Black", Pearl_Weight:"20gms", Pearl_Cost:60});
+instance3.save().then(doc=>{
+
+  console.log("Third object saved")}
+
+  ).catch(err=>{
+
+  console.error(err)})
+}
+let reseed = true;
+if (reseed) { recreateDB();}
+
+
 module.exports = app;
+
+//Get the default connection
+//Bind connection to error event
