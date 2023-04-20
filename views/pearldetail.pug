@@ -1,0 +1,21 @@
+extends layout
+
+block content
+ h1= title
+ - let Pearlid = toShow._id
+ - let Pearl_Color = toShow.Pearl_Color
+ - let Pearl_Weight = toShow.Pearl_Weight
+ - let Pearl_Cost = toShow.Pearl_Cost
+ div
+  div.row
+   div(class='PearlAttr mr-3') Pearl ID is:
+   div #{Pearlid}
+  div.row
+   div(class='PearlAttr mr-3') Pearl Color is:
+   div #{Pearl_Color}
+  div.row
+   div(class='PearlAttr mr-3') Pearl Weight is:
+   div #{Pearl_Weight}
+  div.row
+   div(class='PearlAttr mr-3') Pearl Cost is:
+   div #{Pearl_Cost}

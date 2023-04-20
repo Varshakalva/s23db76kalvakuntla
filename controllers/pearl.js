@@ -37,9 +37,9 @@ exports.pearl_create_post = async function (req, res) {
 
 
 // Handle pearl delete form on DELETE.
-exports.pearl_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: pearl delete DELETE ' + req.params.id);
-};
+// exports.pearl_delete = function (req, res) {
+//     res.send('NOT IMPLEMENTED: pearl delete DELETE ' + req.params.id);
+// };
 
 
 
@@ -124,3 +124,69 @@ exports.pearl_view_all_Page = async function (req, res) {
 //     res.send(`{"error": ${err}}`);
 //     }
 //    };
+
+
+// Handle pearl delete on DELETE.
+exports.pearl_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await pearl.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+
+
+
+// Handle a show one view with id specified by query
+exports.Pearl_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await pearl.findById( req.query.id)
+    res.render('Pearldetail',
+    { title: 'Pearl Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+
+    
+// Handle building the view for updating a Pearl.
+// query provides the id
+exports.Pearl_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await pearl.findById(req.query.id)
+    res.render('pearlupdate', { title: 'Pearl Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+
+
+// Handle a delete one view with id from query
+    // Handle a delete one view with id from query
+exports.pearl_delete_Page = async function(req, res) {
+        console.log("Delete view for id " + req.query.id)
+        try{
+        result = await pearl.findById(req.query.id)
+        res.render('pearldelete', { title: 'Pearl Delete', toShow:
+       result });
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+       };
+    
+
+    
