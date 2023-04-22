@@ -95,7 +95,7 @@ exports.pearl_detail = async function (req, res) {
 exports.pearl_view_all_Page = async function (req, res) {
     try {
         thepearl = await pearl.find();
-        res.render('pearl', { title: 'pearl Search Results', results: thepearl });
+        res.render('pearl', { title: 'pearl Search Results', theresults: thepearl });
     }
     catch (err) {
         res.status(500);

@@ -1,21 +1,24 @@
-
 extends layout
 
 block content
   h1= title
-  - let results = [{Pearl_Color :"Green",Pearl_Weight:"10gms",Pearl_Cost:"$50"},{Pearl_Color:"White",Pearl_Weight:"15gms",Pearl_Cost:"$55"},{Pearl_Color:"Black",Pearl_Weight:"20gms",Pearl_Cost:"$60"}]
+  - let results = theresults
+  console.log(results) 
   div(class="container-fluid")
-    div(class="row")
+    div(class="row m-1")
       each item,index in results
-        div(class="col-sm-2",onClick=`buy(${index})`)
-          p Color is #{item.Pearl_Color}
-          p Weight  is #{item.Pearl_Weight}
-          p Cost is #{item.Pearl_Cost}
-
-  //- Bonus Logic
+        - let destination = `dispatch(\"/pearl/update?id=${item._id}\")`
+          div(class="col-sm-2",onClick=`buy(${index})`)
+            p Pearl Type is #{item.Pearl_Color}
+            p Pearl Weight is #{item.Pearl_Weight}
+            p Pearl Cost is #{item.Pearl_Cost}
+            button.btn( class="btn-primary ml-1", onclick= destination) Update
   script.
-    function buy(itr) {
-      itr = itr+1;
-      alert(`You Purchased Item ${itr}`);
-    }
+    //- function buy(itr) {
+    //-   itr = itr+1;
+    //-   alert(`You Purchased Item ${itr}`);
+    //- }
 
+    function dispatch(path){
+      window.location.href=path
+    }

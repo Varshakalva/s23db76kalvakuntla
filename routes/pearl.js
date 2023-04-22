@@ -2,10 +2,8 @@ var express = require('express');
 var router = express.Router();
 const Pearl_controlers = require('../controllers/pearl');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('Pearl', { title: 'Search Results Pearl' });
-});
+
+router.get('/',Pearl_controlers.pearl_view_all_Page);
 
 /* GET create update page */
 router.get('/update', Pearl_controlers.Pearl_update_Page);
