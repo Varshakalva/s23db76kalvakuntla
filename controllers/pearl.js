@@ -167,6 +167,7 @@ exports.Pearl_update_Page = async function(req, res) {
     }
     catch(err){
     res.status(500)
+    
     res.send(`{'error': '${err}'}`);
     }
     };
@@ -187,6 +188,20 @@ exports.pearl_delete_Page = async function(req, res) {
         res.send(`{'error': '${err}'}`);
         }
        };
+
+
+       exports.Pearl_create_Page = async function(req, res) {
+        console.log("create view")
+        try{
+        result = await pearl.findById(req.query.id)
+        res.render('pearlcreate', { title: 'Pearl Create', toShow: result});
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+       };
+    
     
 
     

@@ -3,16 +3,28 @@ extends layout
 block content
   h1= title
   - let results = theresults
+  
+  - let createM = `dispatch(\"/pearl/create\")`
+  button.btn( class="btn-primary ml-1", onclick= createM) Create
+  
   console.log(results) 
   div(class="container-fluid")
     div(class="row m-1")
       each item,index in results
         - let destination = `dispatch(\"/pearl/update?id=${item._id}\")`
+        - let detail = `dispatch(\"/pearl/detail?id=${item._id}\")`
+        
+        - let deleteM = `dispatch(\"/pearl/delete?id=${item._id}\")`
           div(class="col-sm-2",onClick=`buy(${index})`)
             p Pearl Type is #{item.Pearl_Color}
             p Pearl Weight is #{item.Pearl_Weight}
             p Pearl Cost is #{item.Pearl_Cost}
+    
             button.btn( class="btn-primary ml-1", onclick= destination) Update
+            <br>
+            button.btn( class="btn-primary ml-1", onclick= deleteM) Delete
+            <br>
+            button.btn( class="btn-primary ml-1", onclick= detail) Detail
   script.
     //- function buy(itr) {
     //-   itr = itr+1;

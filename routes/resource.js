@@ -17,7 +17,7 @@ router.put('/pearl/:id', pearl_controller.pearl_update_put);
 router.get('/pearl/:id', pearl_controller.pearl_detail);
 // GET request for list of all Pearl items.
 router.get('/pearl', pearl_controller.pearl_list);
-module.exports = router;
+
 // API for our resources
 exports.api = function(req, res) {
 res.write('[');
@@ -27,3 +27,4 @@ res.write('}');
 res.write(']')
 res.send();
 };
+module.exports = router;
